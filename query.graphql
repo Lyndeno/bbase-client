@@ -1,5 +1,40 @@
 query RepoGet {
   repoList {
+    accessMode
+    alertDays
+    appendOnly
+    appendOnlyKeys
+    borgVersion
+    compactionEnabled
+    compactionHour
+    compactionHourTimezone
+    compactionInterval
+    compactionIntervalUnit
+    createdAt
+    currentUsage
+    encryption
+    format
+    fullAccessKeys
+    htpasswd
+    id
     name
+    quota
+    quotaEnabled
+    region
+    repoPath
+    resticVersion
+    rsyncKeys
+    sftpEnabled
+    server {
+      fingerprintEcdsa
+      fingerprintEd25519
+      fingerprintRsa
+      hostname
+      id
+      location
+      public
+      region
+    }
+    lastModified
   }
 }

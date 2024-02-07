@@ -1,5 +1,8 @@
+use chrono::offset::Utc;
 use graphql_client::{reqwest::post_graphql_blocking as post_graphql, GraphQLQuery, Response};
 use std::error::Error;
+
+type DateTime = chrono::DateTime<Utc>;
 
 #[derive(GraphQLQuery)]
 #[graphql(
@@ -43,7 +46,8 @@ fn main() {
         .repo_list
         .unwrap()
         .iter()
-        .map(|test| test.as_ref().unwrap().name.clone())
+        .flatten()
+        .map(|test| test.name.clone())
         .collect();
 
     print!("Vec {:?}", repos);
