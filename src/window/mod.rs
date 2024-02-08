@@ -1,10 +1,10 @@
 mod imp;
 
-use adw::prelude::*;
 use adw::subclass::prelude::*;
 use adw::Application;
+use adw::{prelude::*, ActionRow};
 use glib::{clone, Object};
-use gtk::ListItem;
+use gtk::ListBox;
 use gtk::{gio, glib, NoSelection, SignalListItemFactory};
 
 use crate::repo_object::RepoObject;
@@ -36,7 +36,24 @@ impl Window {
         self.imp().repos.replace(Some(model));
 
         let selection_model = NoSelection::new(Some(self.repos()));
-        self.imp().repo_list.set_model(Some(&selection_model));
+        self.imp().repo_list.bind_model(
+            Some(&selection_model),
+            clone!(@weak self as window => @default-panic, move |obj| {
+                let repo_object = obj.downcast_ref().expect("Obj should be RepoObject");
+                let row = window.create_repo_row(repo_object);
+                row.upcast()
+            }),
+        );
+
+        self.set_repo_list_visible(&self.repos());
+        self.repos()
+            .connect_items_changed(clone!(@weak self as window => move |repos, _, _, _| {
+                window.set_repo_list_visible(repos);
+            }));
+    }
+
+    fn set_repo_list_visible(&self, repos: &gio::ListStore) {
+        self.imp().repo_list.set_visible(repos.n_items() > 0);
     }
 
     fn get_repos(&self) {
@@ -56,50 +73,36 @@ impl Window {
             .connect_clicked(clone!(@weak self as window => move |_| {
                 window.get_repos();
             }));
+
+        self.imp()
+            .aboutbutton
+            .connect_clicked(clone!(@weak self as window => move |_| {
+                let dialog = adw::AboutWindow::builder()
+                    .application_name("BBase")
+                    .developer_name("Lyndon Sanche")
+                    .website("https://github.com/lyndeno/bbase-client")
+                    .version(env!("CARGO_PKG_VERSION"))
+                    .modal(true)
+                    .developers(vec![
+                        "Lyndon Sanche <lsanche@lyndeno.ca>".to_string()
+                    ])
+                    .build();
+
+                dialog.set_transient_for(Some(&window));
+
+                dialog.present();
+            }));
     }
 
-    fn setup_factory(&self) {
-        let factory = SignalListItemFactory::new();
+    fn create_repo_row(&self, repo_object: &RepoObject) -> ActionRow {
+        let row = ActionRow::builder().build();
 
-        factory.connect_setup(move |_, list_item| {
-            let repo_row = RepoRow::new();
+        repo_object
+            .bind_property("name", &row, "title")
+            .bidirectional()
+            .sync_create()
+            .build();
 
-            list_item
-                .downcast_ref::<ListItem>()
-                .expect("Needs to be listitem")
-                .set_child(Some(&repo_row));
-        });
-
-        factory.connect_bind(move |_, list_item| {
-            let repo_object = list_item
-                .downcast_ref::<ListItem>()
-                .expect("Need to be listitem")
-                .item()
-                .and_downcast::<RepoObject>()
-                .expect("Needs to be repoobject");
-
-            let repo_row = list_item
-                .downcast_ref::<ListItem>()
-                .expect("not listitem")
-                .child()
-                .and_downcast::<RepoRow>()
-                .expect("Child needs to be reporow");
-
-            repo_row.bind(&repo_object);
-        });
-
-        factory.connect_unbind(move |_, list_item| {
-            // Get `TaskRow` from `ListItem`
-            let repo_row = list_item
-                .downcast_ref::<ListItem>()
-                .expect("Needs to be ListItem")
-                .child()
-                .and_downcast::<RepoRow>()
-                .expect("The child has to be a `RepoRow`.");
-
-            repo_row.unbind();
-        });
-
-        self.imp().repo_list.set_factory(Some(&factory));
+        row
     }
 }

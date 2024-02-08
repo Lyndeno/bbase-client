@@ -2,7 +2,7 @@ use std::cell::RefCell;
 
 use adw::subclass::prelude::*;
 use glib::subclass::InitializingObject;
-use gtk::ListView;
+use gtk::ListBox;
 use gtk::{gio, glib, Button, CompositeTemplate};
 
 // Object for state
@@ -10,10 +10,12 @@ use gtk::{gio, glib, Button, CompositeTemplate};
 #[template(resource = "/org/lyndeno/bbase/window.ui")]
 pub struct Window {
     #[template_child]
+    pub aboutbutton: TemplateChild<Button>,
+    #[template_child]
     pub button: TemplateChild<Button>,
 
     #[template_child]
-    pub repo_list: TemplateChild<ListView>,
+    pub repo_list: TemplateChild<ListBox>,
     pub repos: RefCell<Option<gio::ListStore>>,
 }
 
@@ -46,7 +48,6 @@ impl ObjectImpl for Window {
         let obj = self.obj();
         obj.setup_repos();
         obj.setup_callbacks();
-        obj.setup_factory();
     }
 }
 

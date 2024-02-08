@@ -2,6 +2,9 @@
 <interface>
 <template class="MyGtkAppWindow" parent="GtkApplicationWindow">
     <property name="title">BBase</property>
+    <child type="titlebar">
+      <object class="AdwHeaderBar"/>
+    </child>
     <child>
       <object class="GtkBox">
         <property name="orientation">vertical</property>
@@ -10,6 +13,15 @@
         <property name="margin-start">12</property>
         <property name="margin-end">12</property>  
         <property name="spacing">6</property>
+        <child>
+          <object class="GtkButton" id="aboutbutton">
+            <property name="label">About</property>
+            <property name="margin-top">12</property>
+            <property name="margin-bottom">12</property>
+            <property name="margin-start">12</property>
+            <property name="margin-end">12</property>  
+          </object>
+        </child>
         <child>
           <object class="GtkButton" id="button">
             <property name="label">Press me!</property>
@@ -24,15 +36,26 @@
             <property name="hscrollbar-policy">never</property>
             <property name="min-content-height">360</property>
             <property name="vexpand">true</property>
-            <child>
-              <object class="GtkListView" id="repo_list">
-                <property name="valign">true</property>
-                <style>
-                  <class name="frame"/>
-                  <class name="separators"/>
-                </style>
+
+            <property name="child">
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="spacing">18</property>
+                <property name="margin-top">24</property>
+                <property name="margin-bottom">24</property>
+                <property name="margin-start">12</property>
+                <property name="margin-end">12</property>
+                <child>
+                  <object class="GtkListBox" id="repo_list">
+                    <property name="visible">False</property>
+                    <property name="selection-mode">none</property>
+                    <style>
+                      <class name="boxed-list"/>
+                    </style>
+                  </object>
+                </child>
               </object>
-            </child>
+            </property>
           </object>
         </child>
       </object>
