@@ -1,7 +1,9 @@
+use std::cell::RefCell;
+
 use glib::subclass::InitializingObject;
-use gtk::prelude::*;
 use gtk::subclass::prelude::*;
-use gtk::{glib, Button, CompositeTemplate};
+use gtk::{gio, glib, Button, CompositeTemplate};
+use gtk::{prelude::*, ListView};
 
 // Object for state
 #[derive(CompositeTemplate, Default)]
@@ -9,6 +11,10 @@ use gtk::{glib, Button, CompositeTemplate};
 pub struct Window {
     #[template_child]
     pub button: TemplateChild<Button>,
+
+    #[template_child]
+    pub repo_list: TemplateChild<ListView>,
+    pub repos: RefCell<Option<gio::ListStore>>,
 }
 
 // Trait for subclassing
@@ -33,9 +39,14 @@ impl ObjectImpl for Window {
     fn constructed(&self) {
         self.parent_constructed();
 
-        self.button.connect_clicked(move |button| {
-            button.set_label("Yo");
-        });
+        //self.button.connect_clicked(move |button| {
+        //    button.set_label("Yo");
+        //});
+
+        let obj = self.obj();
+        obj.setup_repos();
+        obj.setup_callbacks();
+        obj.setup_factory();
     }
 }
 
