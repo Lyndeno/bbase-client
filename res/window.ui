@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+<menu id="main-menu">
+  <item>
+    <attribute name="label" translatable="yes">_About BBase</attribute>
+    <attribute name="action">win.show_about</attribute>
+  </item>
+</menu>
 <template class="MyGtkAppWindow" parent="GtkApplicationWindow">
     <property name="title">BBase</property>
     <child type="titlebar">
-      <object class="AdwHeaderBar"/>
+      <object class="AdwHeaderBar">
+        <child type="end">
+          <object class="GtkMenuButton">
+            <property name="icon-name">open-menu-symbolic</property>
+            <property name="menu-model">main-menu</property>
+          </object>
+        </child>
+      </object>
     </child>
     <child>
       <object class="GtkBox">
@@ -13,15 +26,6 @@
         <property name="margin-start">12</property>
         <property name="margin-end">12</property>  
         <property name="spacing">6</property>
-        <child>
-          <object class="GtkButton" id="aboutbutton">
-            <property name="label">About</property>
-            <property name="margin-top">12</property>
-            <property name="margin-bottom">12</property>
-            <property name="margin-start">12</property>
-            <property name="margin-end">12</property>  
-          </object>
-        </child>
         <child>
           <object class="GtkButton" id="button">
             <property name="label">Press me!</property>

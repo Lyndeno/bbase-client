@@ -10,8 +10,6 @@ use gtk::{gio, glib, Button, CompositeTemplate};
 #[template(resource = "/org/lyndeno/bbase/window.ui")]
 pub struct Window {
     #[template_child]
-    pub aboutbutton: TemplateChild<Button>,
-    #[template_child]
     pub button: TemplateChild<Button>,
 
     #[template_child]
@@ -48,6 +46,7 @@ impl ObjectImpl for Window {
         let obj = self.obj();
         obj.setup_repos();
         obj.setup_callbacks();
+        obj.setup_actions();
     }
 }
 

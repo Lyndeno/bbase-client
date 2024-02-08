@@ -4,6 +4,7 @@ use adw::subclass::prelude::*;
 use adw::Application;
 use adw::{prelude::*, ActionRow};
 use glib::{clone, Object};
+use gtk::gio::ActionEntry;
 use gtk::ListBox;
 use gtk::{gio, glib, NoSelection, SignalListItemFactory};
 
@@ -73,25 +74,6 @@ impl Window {
             .connect_clicked(clone!(@weak self as window => move |_| {
                 window.get_repos();
             }));
-
-        self.imp()
-            .aboutbutton
-            .connect_clicked(clone!(@weak self as window => move |_| {
-                let dialog = adw::AboutWindow::builder()
-                    .application_name("BBase")
-                    .developer_name("Lyndon Sanche")
-                    .website("https://github.com/lyndeno/bbase-client")
-                    .version(env!("CARGO_PKG_VERSION"))
-                    .modal(true)
-                    .developers(vec![
-                        "Lyndon Sanche <lsanche@lyndeno.ca>".to_string()
-                    ])
-                    .build();
-
-                dialog.set_transient_for(Some(&window));
-
-                dialog.present();
-            }));
     }
 
     fn create_repo_row(&self, repo_object: &RepoObject) -> ActionRow {
@@ -104,5 +86,26 @@ impl Window {
             .build();
 
         row
+    }
+
+    fn setup_actions(&self) {
+        let action_about = ActionEntry::builder("show_about")
+            .activate(move |window, action, _| {
+                let dialog = adw::AboutWindow::builder()
+                    .application_name("BBase")
+                    .developer_name("Lyndon Sanche")
+                    .website("https://github.com/lyndeno/bbase-client")
+                    .version(env!("CARGO_PKG_VERSION"))
+                    .modal(true)
+                    .developers(vec!["Lyndon Sanche <lsanche@lyndeno.ca>".to_string()])
+                    .build();
+
+                dialog.set_transient_for(Some(window));
+
+                dialog.present();
+            })
+            .build();
+
+        self.add_action_entries([action_about]);
     }
 }
