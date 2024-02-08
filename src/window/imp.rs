@@ -1,9 +1,9 @@
 use std::cell::RefCell;
 
+use adw::subclass::prelude::*;
 use glib::subclass::InitializingObject;
-use gtk::subclass::prelude::*;
+use gtk::ListView;
 use gtk::{gio, glib, Button, CompositeTemplate};
-use gtk::{prelude::*, ListView};
 
 // Object for state
 #[derive(CompositeTemplate, Default)]

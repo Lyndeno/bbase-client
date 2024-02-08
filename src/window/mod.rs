@@ -1,10 +1,11 @@
 mod imp;
 
+use adw::prelude::*;
+use adw::subclass::prelude::*;
 use adw::Application;
 use glib::{clone, Object};
-use gtk::subclass::prelude::*;
+use gtk::ListItem;
 use gtk::{gio, glib, NoSelection, SignalListItemFactory};
-use gtk::{prelude::*, ListItem};
 
 use crate::repo_object::RepoObject;
 use crate::repo_row::RepoRow;

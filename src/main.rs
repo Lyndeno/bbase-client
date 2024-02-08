@@ -7,9 +7,10 @@ use gtk::ApplicationWindow;
 use std::error::Error;
 use window::Window;
 
+use adw::prelude::*;
 use adw::Application;
+use gtk::Button;
 use gtk::{gio, glib};
-use gtk::{prelude::*, Button};
 
 const APP_ID: &str = "org.lyndeno.bbase";
 
