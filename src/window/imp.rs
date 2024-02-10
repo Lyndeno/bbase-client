@@ -14,6 +14,9 @@ pub struct Window {
     pub button: TemplateChild<Button>,
 
     #[template_child]
+    pub refresh_button: TemplateChild<Button>,
+
+    #[template_child]
     pub repo_list: TemplateChild<ListBox>,
     pub repos: RefCell<Option<gio::ListStore>>,
 }

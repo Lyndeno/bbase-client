@@ -10,9 +10,14 @@
     <property name="title">BBase</property>
     <child type="titlebar">
       <object class="AdwHeaderBar">
+        <child>
+          <object class="GtkButton" id="refresh_button">
+            <property name="icon-name">view-refresh-symbolic</property>
+          </object>
+        </child>
         <child type="end">
           <object class="GtkMenuButton">
-            <property name="icon-name">open-menu-symbolic</property>
+            <property name="icon-name">view-more-symbolic</property>
             <property name="menu-model">main-menu</property>
           </object>
         </child>

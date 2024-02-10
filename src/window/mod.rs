@@ -81,6 +81,15 @@ impl Window {
                     window.imp().button.set_sensitive(true);
                 }));
             }));
+        self.imp()
+            .refresh_button
+            .connect_clicked(clone!(@weak self as window => move |_| {
+                glib::spawn_future_local(clone!(@weak window => async move {
+                    window.imp().refresh_button.set_sensitive(false);
+                    window.get_repos().await;
+                    window.imp().refresh_button.set_sensitive(true);
+                }));
+            }));
     }
 
     fn create_repo_row(&self, repo_object: &RepoObject) -> ActionRow {
