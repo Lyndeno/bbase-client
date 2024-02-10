@@ -58,6 +58,7 @@ impl Window {
     }
 
     fn get_repos(&self) {
+        self.repos().remove_all();
         let repos = vec![
             ("morpheus".to_string(), "Edmonton".to_string()),
             ("neo".to_string(), "Saskatoon".to_string()),
@@ -81,6 +82,12 @@ impl Window {
 
         repo_object
             .bind_property("name", &row, "title")
+            .bidirectional()
+            .sync_create()
+            .build();
+
+        repo_object
+            .bind_property("location", &row, "subtitle")
             .bidirectional()
             .sync_create()
             .build();
