@@ -4,17 +4,17 @@ use std::sync::{Arc, RwLock};
 use adw::subclass::prelude::*;
 use glib::subclass::InitializingObject;
 use gtk::ListBox;
-use gtk::{gio, glib, Button, CompositeTemplate};
+use gtk::{gio, glib, Button, CompositeTemplate, Spinner};
 
 // Object for state
 #[derive(CompositeTemplate, Default)]
 #[template(resource = "/org/lyndeno/bbase/window.ui")]
 pub struct Window {
     #[template_child]
-    pub button: TemplateChild<Button>,
+    pub refresh_button: TemplateChild<Button>,
 
     #[template_child]
-    pub refresh_button: TemplateChild<Button>,
+    pub refresh_spinner: TemplateChild<Spinner>,
 
     #[template_child]
     pub repo_list: TemplateChild<ListBox>,

@@ -73,21 +73,14 @@ impl Window {
 
     fn setup_callbacks(&self) {
         self.imp()
-            .button
-            .connect_clicked(clone!(@weak self as window => move |_| {
-                glib::spawn_future_local(clone!(@weak window => async move {
-                    window.imp().button.set_sensitive(false);
-                    window.get_repos().await;
-                    window.imp().button.set_sensitive(true);
-                }));
-            }));
-        self.imp()
             .refresh_button
             .connect_clicked(clone!(@weak self as window => move |_| {
                 glib::spawn_future_local(clone!(@weak window => async move {
                     window.imp().refresh_button.set_sensitive(false);
+                    window.imp().refresh_spinner.start();
                     window.get_repos().await;
                     window.imp().refresh_button.set_sensitive(true);
+                    window.imp().refresh_spinner.stop();
                 }));
             }));
     }
