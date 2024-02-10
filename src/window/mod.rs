@@ -62,10 +62,10 @@ impl Window {
         self.imp().repo_list.set_visible(repos.n_items() > 0);
     }
 
-    fn get_repos(&self) {
+    async fn get_repos(&self) {
         let repos = get_repos();
         self.repos().remove_all();
-        for repo in repos {
+        for repo in repos.await {
             let item = RepoObject::new(repo.name, repo.region);
             self.repos().append(&item);
         }
@@ -75,7 +75,11 @@ impl Window {
         self.imp()
             .button
             .connect_clicked(clone!(@weak self as window => move |_| {
-                window.get_repos();
+                glib::spawn_future_local(clone!(@weak window => async move {
+                    window.imp().button.set_sensitive(false);
+                    window.get_repos().await;
+                    window.imp().button.set_sensitive(true);
+                }));
             }));
     }
 

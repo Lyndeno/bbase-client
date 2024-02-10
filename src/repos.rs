@@ -1,4 +1,4 @@
-use graphql_client::{reqwest::post_graphql_blocking as post_graphql, GraphQLQuery, Response};
+use graphql_client::{reqwest::post_graphql, GraphQLQuery, Response};
 
 use chrono::offset::Utc;
 
@@ -13,11 +13,11 @@ type DateTime = chrono::DateTime<Utc>;
 )]
 struct RepoGet;
 
-pub fn get_repos() -> Vec<RepoGetRepoList> {
+pub async fn get_repos() -> Vec<RepoGetRepoList> {
     let borg_token = std::env::var("BORG_TOKEN");
 
     if let Ok(t) = borg_token {
-        let client = reqwest::blocking::Client::builder()
+        let client = reqwest::Client::builder()
             .user_agent("graphql-rust/0.10.0")
             .default_headers(
                 std::iter::once((
@@ -34,6 +34,7 @@ pub fn get_repos() -> Vec<RepoGetRepoList> {
             "https://api.borgbase.com/graphql",
             repo_get::Variables,
         )
+        .await
         .unwrap();
 
         let response_data: repo_get::ResponseData = response_body.data.expect("Oops");

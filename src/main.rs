@@ -13,7 +13,8 @@ use gtk::{gio, glib};
 
 const APP_ID: &str = "org.lyndeno.bbase";
 
-fn main() -> glib::ExitCode {
+#[async_std::main]
+async fn main() -> glib::ExitCode {
     println!("Hello, world!");
 
     /*
