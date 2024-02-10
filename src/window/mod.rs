@@ -1,5 +1,9 @@
 mod imp;
 
+use std::borrow::Borrow;
+use std::ops::Deref;
+use std::sync::RwLock;
+
 use adw::subclass::prelude::*;
 use adw::Application;
 use adw::{prelude::*, ActionRow};
@@ -10,6 +14,7 @@ use gtk::{gio, glib, NoSelection, SignalListItemFactory};
 
 use crate::repo_object::RepoObject;
 use crate::repo_row::RepoRow;
+use crate::repos::get_repos;
 
 glib::wrapper! {
     pub struct Window(ObjectSubclass<imp::Window>)
@@ -58,13 +63,10 @@ impl Window {
     }
 
     fn get_repos(&self) {
+        let repos = get_repos();
         self.repos().remove_all();
-        let repos = vec![
-            ("morpheus".to_string(), "Edmonton".to_string()),
-            ("neo".to_string(), "Saskatoon".to_string()),
-        ];
         for repo in repos {
-            let item = RepoObject::new(repo.0, repo.1);
+            let item = RepoObject::new(repo.name, repo.region);
             self.repos().append(&item);
         }
     }

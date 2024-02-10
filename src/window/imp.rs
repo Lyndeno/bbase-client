@@ -1,4 +1,5 @@
 use std::cell::RefCell;
+use std::sync::{Arc, RwLock};
 
 use adw::subclass::prelude::*;
 use glib::subclass::InitializingObject;
