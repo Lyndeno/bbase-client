@@ -6,6 +6,7 @@ use std::sync::RwLock;
 
 use adw::subclass::prelude::*;
 use adw::Application;
+use adw::Toast;
 use adw::{prelude::*, ActionRow};
 use glib::{clone, Object};
 use gtk::gio::ActionEntry;
@@ -81,6 +82,7 @@ impl Window {
                     window.get_repos().await;
                     window.imp().refresh_button.set_sensitive(true);
                     window.imp().refresh_spinner.stop();
+                    window.imp().mytoast.add_toast(Toast::new("Refreshed"));
                 }));
             }));
     }

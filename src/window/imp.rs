@@ -2,6 +2,7 @@ use std::cell::RefCell;
 use std::sync::{Arc, RwLock};
 
 use adw::subclass::prelude::*;
+use adw::ToastOverlay;
 use glib::subclass::InitializingObject;
 use gtk::ListBox;
 use gtk::{gio, glib, Button, CompositeTemplate, Spinner};
@@ -15,6 +16,9 @@ pub struct Window {
 
     #[template_child]
     pub refresh_spinner: TemplateChild<Spinner>,
+
+    #[template_child]
+    pub mytoast: TemplateChild<ToastOverlay>,
 
     #[template_child]
     pub repo_list: TemplateChild<ListBox>,
