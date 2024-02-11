@@ -88,7 +88,11 @@ impl Window {
     }
 
     fn create_repo_row(&self, repo_object: &RepoObject) -> ActionRow {
-        let row = ActionRow::builder().build();
+        let row = ActionRow::builder()
+            .activatable(true)
+            .action_name("win.toast_name")
+            .action_target(&repo_object.name().to_variant())
+            .build();
 
         repo_object
             .bind_property("name", &row, "title")
@@ -107,7 +111,7 @@ impl Window {
 
     fn setup_actions(&self) {
         let action_about = ActionEntry::builder("show_about")
-            .activate(move |window, action, _| {
+            .activate(move |window: &Self, action, _| {
                 let dialog = adw::AboutWindow::builder()
                     .application_name("BBase")
                     .developer_name("Lyndon Sanche")
@@ -123,6 +127,17 @@ impl Window {
             })
             .build();
 
-        self.add_action_entries([action_about]);
+        let action_toast = ActionEntry::builder("toast_name")
+            .parameter_type(Some(&String::static_variant_type()))
+            .activate(move |window: &Self, action, param| {
+                let name = param
+                    .expect("No parameter")
+                    .get::<String>()
+                    .expect("Not a string");
+                window.imp().mytoast.add_toast(Toast::new(&name));
+            })
+            .build();
+
+        self.add_action_entries([action_about, action_toast]);
     }
 }
