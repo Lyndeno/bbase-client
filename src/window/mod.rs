@@ -91,17 +91,7 @@ impl Window {
         let row = ActionRow::builder()
             .activatable(true)
             .action_name("win.toast_name")
-            .action_target(
-                &repo_object
-                    .imp()
-                    .data
-                    .borrow()
-                    .data
-                    .as_ref()
-                    .unwrap()
-                    .access_mode
-                    .to_variant(),
-            )
+            .action_target(&repo_object.data().data.unwrap().access_mode.to_variant())
             .build();
 
         repo_object

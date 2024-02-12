@@ -1,5 +1,6 @@
 mod imp;
 
+use adw::subclass::prelude::*;
 use glib::Object;
 use gtk::glib::{self, subclass::types::FromObject, value::FromValue};
 
@@ -21,9 +22,13 @@ impl RepoObject {
         imp.data.borrow_mut().data = Some(repo);
         built
     }
+
+    pub fn data(&self) -> RepoData {
+        self.imp().data.borrow().clone()
+    }
 }
 
-#[derive(Default)]
+#[derive(Default, Clone)]
 pub struct RepoData {
     pub name: String,
     pub location: String,
