@@ -9,9 +9,9 @@ type DateTime = chrono::DateTime<Utc>;
 #[graphql(
     schema_path = "schema.json",
     query_path = "query.graphql",
-    response_derives = "Debug"
+    response_derives = "Debug, Clone"
 )]
-struct RepoGet;
+pub struct RepoGet;
 
 pub async fn get_repos() -> Vec<RepoGetRepoList> {
     let borg_token = std::env::var("BORG_TOKEN");

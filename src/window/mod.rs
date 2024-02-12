@@ -67,7 +67,7 @@ impl Window {
         let repos = get_repos();
         self.repos().remove_all();
         for repo in repos.await {
-            let item = RepoObject::new(repo.name, repo.region);
+            let item = RepoObject::new(repo);
             self.repos().append(&item);
         }
     }
@@ -91,7 +91,17 @@ impl Window {
         let row = ActionRow::builder()
             .activatable(true)
             .action_name("win.toast_name")
-            .action_target(&repo_object.name().to_variant())
+            .action_target(
+                &repo_object
+                    .imp()
+                    .data
+                    .borrow()
+                    .data
+                    .as_ref()
+                    .unwrap()
+                    .access_mode
+                    .to_variant(),
+            )
             .build();
 
         repo_object
