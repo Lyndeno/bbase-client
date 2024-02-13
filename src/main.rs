@@ -4,6 +4,7 @@ mod repos;
 mod window;
 use gtk::ApplicationWindow;
 use std::error::Error;
+use std::sync::OnceLock;
 use window::Window;
 
 use adw::prelude::*;
@@ -13,8 +14,14 @@ use gtk::{gio, glib};
 
 const APP_ID: &str = "org.lyndeno.bbase";
 
-#[async_std::main]
-async fn main() -> glib::ExitCode {
+use tokio::runtime::Runtime;
+
+pub fn runtime() -> &'static Runtime {
+    static RUNTIME: OnceLock<Runtime> = OnceLock::new();
+    RUNTIME.get_or_init(|| Runtime::new().expect("Tokio runtime needs to work"))
+}
+
+fn main() -> glib::ExitCode {
     println!("Hello, world!");
 
     /*

@@ -63,28 +63,33 @@ impl Window {
         self.imp().repo_list.set_visible(repos.n_items() > 0);
     }
 
-    async fn get_repos(&self) {
-        let repos = get_repos();
-        self.repos().remove_all();
-        for repo in repos.await {
-            let item = RepoObject::new(repo);
-            self.repos().append(&item);
-        }
-    }
+    async fn get_repos(&self) {}
 
     fn setup_callbacks(&self) {
+        let (sender, receiver) = async_channel::bounded(1);
         self.imp()
             .refresh_button
             .connect_clicked(clone!(@weak self as window => move |_| {
-                glib::spawn_future_local(clone!(@weak window => async move {
-                    window.imp().refresh_button.set_sensitive(false);
-                    window.imp().refresh_spinner.start();
-                    window.get_repos().await;
-                    window.imp().refresh_button.set_sensitive(true);
-                    window.imp().refresh_spinner.stop();
-                    window.imp().mytoast.add_toast(Toast::new("Refreshed"));
+                window.imp().refresh_button.set_sensitive(false);
+                window.imp().refresh_spinner.start();
+                crate::runtime().spawn(clone!(@strong sender => async move {
+                    let repos = get_repos().await;
+                    sender.send(repos).await.expect("Channel is not open");
                 }));
             }));
+
+        glib::spawn_future_local(clone!(@weak self as window => async move {
+            while let Ok(response) = receiver.recv().await {
+                    window.repos().remove_all();
+                    for repo in response {
+                        let item = RepoObject::new(repo);
+                        window.repos().append(&item);
+                    }
+                window.imp().refresh_button.set_sensitive(true);
+                window.imp().refresh_spinner.stop();
+                window.imp().mytoast.add_toast(Toast::new("Refreshed"));
+            }
+        }));
     }
 
     fn create_repo_row(&self, repo_object: &RepoObject) -> ActionRow {
