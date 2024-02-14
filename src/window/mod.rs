@@ -10,6 +10,7 @@ use adw::Toast;
 use adw::{prelude::*, ActionRow};
 use glib::{clone, Object};
 use gtk::gio::ActionEntry;
+use gtk::glib::property::PropertyGet;
 use gtk::ListBox;
 use gtk::{gio, glib, NoSelection, SignalListItemFactory};
 
@@ -96,7 +97,7 @@ impl Window {
         let row = ActionRow::builder()
             .activatable(true)
             .action_name("win.toast_name")
-            .action_target(&repo_object.data().data.unwrap().access_mode.to_variant())
+            .action_target(&repo_object.accessmode().to_variant())
             .build();
 
         repo_object

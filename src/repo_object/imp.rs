@@ -12,7 +12,8 @@ use super::RepoData;
 #[properties(wrapper_type = super::RepoObject)]
 pub struct RepoObject {
     #[property(name = "name", get, set, type = String, member = name)]
-    #[property(name = "location", get, set, type = String, member = location)]
+    #[property(name = "location", get, set, type = String, member = region)]
+    #[property(name = "accessmode", get, set, type = String, member = access_mode)]
     pub data: RefCell<RepoData>,
 }
 

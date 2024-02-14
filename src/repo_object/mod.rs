@@ -16,10 +16,9 @@ impl RepoObject {
         let built = obj
             .property("name", repo.name.clone())
             .property("location", repo.region.clone())
+            .property("accessmode", repo.access_mode.clone())
             .build();
 
-        let imp = imp::RepoObject::from_object(&built);
-        imp.data.borrow_mut().data = Some(repo);
         built
     }
 
@@ -31,7 +30,6 @@ impl RepoObject {
 #[derive(Default, Clone)]
 pub struct RepoData {
     pub name: String,
-    pub location: String,
-
-    pub data: Option<RepoGetRepoList>,
+    pub region: String,
+    pub access_mode: String,
 }
