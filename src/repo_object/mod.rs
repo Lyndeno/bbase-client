@@ -14,9 +14,9 @@ impl RepoObject {
     pub fn new(repo: RepoGetRepoList) -> Self {
         let obj = Object::builder();
         let built = obj
-            .property("name", repo.name.clone())
-            .property("location", repo.region.clone())
-            .property("accessmode", repo.access_mode.clone())
+            .property("name", repo.name)
+            .property("location", repo.region)
+            .property("accessmode", repo.access_mode)
             .build();
 
         built
@@ -32,4 +32,14 @@ pub struct RepoData {
     pub name: String,
     pub region: String,
     pub access_mode: String,
+}
+
+impl From<RepoGetRepoList> for RepoData {
+    fn from(v: RepoGetRepoList) -> Self {
+        Self {
+            name: v.name,
+            region: v.region,
+            access_mode: v.access_mode,
+        }
+    }
 }
