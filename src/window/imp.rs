@@ -1,6 +1,7 @@
 use std::cell::RefCell;
 use std::sync::{Arc, RwLock};
 
+use adw::prelude::*;
 use adw::subclass::prelude::*;
 use adw::ToastOverlay;
 use glib::subclass::InitializingObject;
@@ -31,7 +32,7 @@ impl ObjectSubclass for Window {
     // Name needs to match class
     const NAME: &'static str = "MyGtkAppWindow";
     type Type = super::Window;
-    type ParentType = gtk::ApplicationWindow;
+    type ParentType = adw::ApplicationWindow;
 
     fn class_init(klass: &mut Self::Class) {
         klass.bind_template();
@@ -66,3 +67,6 @@ impl WindowImpl for Window {}
 
 // Trait shared by all app windows
 impl ApplicationWindowImpl for Window {}
+
+// Trait shared by all app windows
+impl AdwApplicationWindowImpl for Window {}
