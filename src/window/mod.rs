@@ -132,6 +132,8 @@ impl Window {
                     .application_name("BBase")
                     .developer_name("Lyndon Sanche")
                     .website("https://github.com/lyndeno/bbase-client")
+                    .issue_url("https://github.com/lyndeno/bbase-client/issues")
+                    .designers(vec!["Lyndon Sanche <lsanche@lyndeno.ca>".to_string()])
                     .version(env!("CARGO_PKG_VERSION"))
                     .modal(true)
                     .developers(vec!["Lyndon Sanche <lsanche@lyndeno.ca>".to_string()])
