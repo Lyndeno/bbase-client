@@ -23,7 +23,7 @@
       naersk-lib = naersk.lib."${system}";
     in rec {
       packages.bbase = naersk-lib.buildPackage {
-        nativeBuildInputs = [pkgs.installShellFiles pkgs.pkg-config pkgs.libadwaita pkgs.gtk4];
+        nativeBuildInputs = [pkgs.installShellFiles pkgs.pkg-config pkgs.libadwaita pkgs.gtk4 pkgs.wrapGAppsHook4];
         postInstall = ''
           installShellCompletion --cmd bbase \
             --bash ./target/release/build/bbase-*/out/bbase.bash \
