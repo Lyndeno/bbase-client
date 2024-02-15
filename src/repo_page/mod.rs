@@ -35,8 +35,25 @@ impl RepoPage {
         let list = imp.prop_list.get();
         let mut bindings = imp.bindings.borrow_mut();
 
-        list.append(&property_row("Name", repo_object.name()));
-        list.append(&property_row("Region", repo_object.location()));
+        let props = vec![
+            ("Name", "name"),
+            ("Region", "location"),
+            ("Access Mode", "accessmode"),
+            ("Last Modified", "lastmodified"),
+        ];
+
+        for (title, prop) in props {
+            let row = ActionRow::builder()
+                .css_classes(["property"])
+                .title(title)
+                .build();
+            let row_binding = repo_object
+                .bind_property(prop, &row, "subtitle")
+                .sync_create()
+                .build();
+            list.append(&row);
+            bindings.push(row_binding);
+        }
 
         let title_binding = repo_object
             .bind_property("name", self, "title")
@@ -50,12 +67,4 @@ impl RepoPage {
             binding.unbind();
         }
     }
-}
-
-fn property_row<A: ToString, B: ToString>(title: A, subtitle: B) -> ActionRow {
-    ActionRow::builder()
-        .title(title.to_string())
-        .subtitle(subtitle.to_string())
-        .css_classes(["property"])
-        .build()
 }

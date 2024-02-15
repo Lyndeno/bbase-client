@@ -14,6 +14,7 @@ pub struct RepoObject {
     #[property(name = "name", get, set, type = String, member = name)]
     #[property(name = "location", get, set, type = String, member = region)]
     #[property(name = "accessmode", get, set, type = String, member = access_mode)]
+    #[property(name = "lastmodified", get, set, type = String, member = last_modified)]
     pub data: RefCell<RepoData>,
 }
 
