@@ -9,68 +9,79 @@
 <template class="MyGtkAppWindow" parent="AdwApplicationWindow">
     <property name="title">BBase</property>
     <property name="content">
-      <object class="AdwToolbarView">
-        <child type="top">
-          <object class="AdwHeaderBar">
-            <child>
-              <object class="GtkButton" id="refresh_button">
-                <property name="icon-name">view-refresh-symbolic</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkSpinner" id="refresh_spinner">
-              </object>
-            </child>
-            <child type="end">
-              <object class="GtkMenuButton">
-                <property name="icon-name">view-more-symbolic</property>
-                <property name="menu-model">main-menu</property>
-              </object>
-            </child>
-          </object>
-        </child>
-        <property name="content">
-          <object class="GtkBox">
-            <property name="orientation">vertical</property>
-            <property name="margin-top">12</property>
-            <property name="margin-bottom">12</property>
-            <property name="margin-start">12</property>
-            <property name="margin-end">12</property>  
-            <property name="spacing">6</property>
-            <child>
-              <object class="AdwToastOverlay" id="mytoast">
-                <child>
-                  <object class="GtkScrolledWindow">
-                    <property name="hscrollbar-policy">never</property>
-                    <property name="min-content-height">360</property>
-                    <property name="vexpand">true</property>
-
-                    <property name="child">
-                      <object class="GtkBox">
-                        <property name="orientation">vertical</property>
-                        <property name="spacing">18</property>
-                        <property name="margin-top">24</property>
-                        <property name="margin-bottom">24</property>
-                        <property name="margin-start">12</property>
-                        <property name="margin-end">12</property>
+      <object class="AdwNavigationView" id="repo_view">
+        <child>
+          <object class="AdwNavigationPage">
+            <property name="title">Repos</property>
+            <property name="child">
+              <object class="AdwToolbarView">
+                <child type="top">
+                  <object class="AdwHeaderBar">
+                    <child>
+                      <object class="GtkButton" id="refresh_button">
+                        <property name="icon-name">view-refresh-symbolic</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSpinner" id="refresh_spinner">
+                      </object>
+                    </child>
+                    <child type="end">
+                      <object class="GtkMenuButton">
+                        <property name="icon-name">view-more-symbolic</property>
+                        <property name="menu-model">main-menu</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <property name="content">
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="margin-top">12</property>
+                    <property name="margin-bottom">12</property>
+                    <property name="margin-start">12</property>
+                    <property name="margin-end">12</property>  
+                    <property name="spacing">6</property>
+                    <child>
+                      <object class="AdwToastOverlay" id="mytoast">
                         <child>
-                          <object class="GtkListBox" id="repo_list">
-                            <property name="visible">False</property>
-                            <property name="selection-mode">none</property>
-                            <style>
-                              <class name="boxed-list"/>
-                            </style>
+                          <object class="GtkScrolledWindow">
+                            <property name="hscrollbar-policy">never</property>
+                            <property name="min-content-height">360</property>
+                            <property name="vexpand">true</property>
+
+                            <property name="child">
+                              <object class="GtkBox">
+                                <property name="orientation">vertical</property>
+                                <property name="spacing">18</property>
+                                <property name="margin-top">24</property>
+                                <property name="margin-bottom">24</property>
+                                <property name="margin-start">12</property>
+                                <property name="margin-end">12</property>
+                                <child>
+                                  <object class="GtkListBox" id="repo_list">
+                                    <property name="visible">False</property>
+                                    <property name="selection-mode">none</property>
+                                    <style>
+                                      <class name="boxed-list"/>
+                                    </style>
+                                  </object>
+                                </child>
+                              </object>
+                            </property>
                           </object>
                         </child>
                       </object>
-                    </property>
+                    </child>
                   </object>
-                </child>
+                </property>
               </object>
-            </child>
+            </property>
           </object>
-        </property>
+        </child>
       </object>
+
+
     </property>
   </template>
 </interface>

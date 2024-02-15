@@ -6,6 +6,7 @@ use std::sync::RwLock;
 
 use adw::subclass::prelude::*;
 use adw::Application;
+use adw::NavigationPage;
 use adw::Toast;
 use adw::{prelude::*, ActionRow};
 use glib::{clone, Object};
@@ -15,6 +16,8 @@ use gtk::ListBox;
 use gtk::{gio, glib, NoSelection, SignalListItemFactory};
 
 use crate::repo_object::RepoObject;
+use crate::repo_page::RepoPage;
+use crate::repo_row;
 use crate::repo_row::RepoRow;
 use crate::repos::get_repos;
 
@@ -97,7 +100,7 @@ impl Window {
         let row = ActionRow::builder()
             .activatable(true)
             .action_name("win.toast_name")
-            .action_target(&repo_object.accessmode().to_variant())
+            .action_target(&repo_object.name().to_variant())
             .build();
 
         repo_object
@@ -140,7 +143,10 @@ impl Window {
                     .expect("No parameter")
                     .get::<String>()
                     .expect("Not a string");
-                window.imp().mytoast.add_toast(Toast::new(&name));
+                let bar = adw::HeaderBar::builder().build();
+                let page = RepoPage::with_info(name, "Test".to_owned());
+                window.imp().repo_view.push(&page);
+                //window.imp().mytoast.add_toast(Toast::new(&name));
             })
             .build();
 

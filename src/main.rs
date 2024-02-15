@@ -1,4 +1,5 @@
 mod repo_object;
+mod repo_page;
 mod repo_row;
 mod repos;
 mod window;

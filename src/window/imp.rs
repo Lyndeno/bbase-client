@@ -3,6 +3,8 @@ use std::sync::{Arc, RwLock};
 
 use adw::prelude::*;
 use adw::subclass::prelude::*;
+use adw::NavigationPage;
+use adw::NavigationView;
 use adw::ToastOverlay;
 use glib::subclass::InitializingObject;
 use gtk::ListBox;
@@ -23,6 +25,9 @@ pub struct Window {
 
     #[template_child]
     pub repo_list: TemplateChild<ListBox>,
+
+    #[template_child]
+    pub repo_view: TemplateChild<NavigationView>,
     pub repos: RefCell<Option<gio::ListStore>>,
 }
 

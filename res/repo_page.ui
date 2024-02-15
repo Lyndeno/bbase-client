@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="RepoPage" parent="AdwNavigationPage">
+    <property name="child">
+    <object class="AdwToolbarView">
+      <child type="top">
+        <object class="AdwHeaderBar">
+        </object>
+      </child>
+      <property name="content">
+        <object class="GtkBox">
+          <property name="orientation">vertical</property>
+          <child>
+            <object class="GtkLabel" id="name_label">
+              <property name="margin-top">12</property>
+              <property name="margin-bottom">12</property>
+              <property name="margin-start">12</property>
+              <property name="margin-end">12</property>
+            </object>
+          </child>
+          <child>
+            <object class="GtkLabel" id="location_label">
+              <property name="margin-top">12</property>
+              <property name="margin-bottom">12</property>
+              <property name="margin-start">12</property>
+              <property name="margin-end">12</property>
+            </object>
+          </child>
+        </object>
+      </property>
+    </object>
+    </property>
+  </template>
+</interface>

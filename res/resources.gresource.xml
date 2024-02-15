@@ -3,5 +3,6 @@
   <gresource prefix="/org/lyndeno/bbase/">
     <file compressed="true" preprocess="xml-stripblanks">window.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">repo_row.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">repo_page.ui</file>
   </gresource>
 </gresources>

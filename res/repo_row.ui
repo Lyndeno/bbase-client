@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="RepoListRow" parent="GtkBox">
+  <template class="RepoPage" parent="GtkBox">
     <child>
       <object class="GtkLabel" id="name_label">
         <property name="margin-top">12</property>
