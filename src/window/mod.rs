@@ -12,6 +12,7 @@ use adw::{prelude::*, ActionRow};
 use glib::{clone, Object};
 use gtk::gio::ActionEntry;
 use gtk::glib::property::PropertyGet;
+use gtk::Button;
 use gtk::ListBox;
 use gtk::{gio, glib, NoSelection, SignalListItemFactory};
 
@@ -97,7 +98,15 @@ impl Window {
     }
 
     fn create_repo_row(&self, repo_object: &RepoObject) -> ActionRow {
+        let button = Button::builder()
+            .icon_name("arrow1-right-symbolic")
+            .can_focus(false)
+            .can_target(false)
+            .has_frame(false)
+            .build();
         let row = ActionRow::builder().activatable(true).build();
+
+        row.add_suffix(&button);
 
         row.connect_activated(clone!(@weak self as window, @weak repo_object => move |_| {
             let page = RepoPage::new();
