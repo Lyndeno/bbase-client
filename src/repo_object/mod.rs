@@ -22,6 +22,7 @@ impl RepoObject {
             .property("location", r.region)
             .property("accessmode", r.access_mode)
             .property("lastmodified", r.last_modified)
+            .property("currentusage", r.current_usage)
             .build();
 
         built
@@ -39,6 +40,7 @@ pub struct RepoData {
     pub access_mode: String,
 
     pub last_modified: String,
+    pub current_usage: f64,
 }
 
 impl From<RepoGetRepoList> for RepoData {
@@ -51,6 +53,7 @@ impl From<RepoGetRepoList> for RepoData {
                 Some(x) => x.to_string(),
                 None => "N/A".to_string(),
             },
+            current_usage: v.current_usage.unwrap_or(0f64),
         }
     }
 }

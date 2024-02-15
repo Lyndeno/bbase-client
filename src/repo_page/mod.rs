@@ -40,6 +40,7 @@ impl RepoPage {
             ("Region", "location"),
             ("Access Mode", "accessmode"),
             ("Last Modified", "lastmodified"),
+            ("Current Usage", "currentusage"),
         ];
 
         for (title, prop) in props {
