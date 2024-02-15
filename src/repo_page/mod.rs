@@ -1,7 +1,7 @@
 mod imp;
 
-use adw::prelude::*;
 use adw::subclass::prelude::*;
+use adw::{prelude::*, ActionRow};
 use glib::Object;
 use gtk::{glib, pango};
 use pango::{AttrInt, AttrList};
@@ -27,27 +27,22 @@ impl RepoPage {
 
     pub fn with_info(name: String, location: String) -> Self {
         let obj: Self = Object::builder().property("title", &name).build();
-        obj.imp().location_label.set_label(&location);
-        obj.imp().name_label.set_label(&name);
         obj
     }
 
     pub fn bind(&self, repo_object: &RepoObject) {
-        let name_label = self.imp().name_label.get();
-        let location_label = self.imp().location_label.get();
-        let mut bindings = self.imp().bindings.borrow_mut();
+        let imp = self.imp();
+        let list = imp.prop_list.get();
+        let mut bindings = imp.bindings.borrow_mut();
 
-        let name_label_binding = repo_object
-            .bind_property("name", &name_label, "label")
+        list.append(&property_row("Name", repo_object.name()));
+        list.append(&property_row("Region", repo_object.location()));
+
+        let title_binding = repo_object
+            .bind_property("name", self, "title")
             .sync_create()
             .build();
-        bindings.push(name_label_binding);
-
-        let location_label_binding = repo_object
-            .bind_property("location", &location_label, "label")
-            .sync_create()
-            .build();
-        bindings.push(location_label_binding);
+        bindings.push(title_binding);
     }
 
     pub fn unbind(&self) {
@@ -55,4 +50,12 @@ impl RepoPage {
             binding.unbind();
         }
     }
+}
+
+fn property_row<A: ToString, B: ToString>(title: A, subtitle: B) -> ActionRow {
+    ActionRow::builder()
+        .title(title.to_string())
+        .subtitle(subtitle.to_string())
+        .css_classes(["property"])
+        .build()
 }

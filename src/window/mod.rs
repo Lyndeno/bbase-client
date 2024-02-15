@@ -97,11 +97,13 @@ impl Window {
     }
 
     fn create_repo_row(&self, repo_object: &RepoObject) -> ActionRow {
-        let row = ActionRow::builder()
-            .activatable(true)
-            .action_name("win.toast_name")
-            .action_target(&repo_object.name().to_variant())
-            .build();
+        let row = ActionRow::builder().activatable(true).build();
+
+        row.connect_activated(clone!(@weak self as window, @weak repo_object => move |_| {
+            let page = RepoPage::new();
+            page.bind(&repo_object);
+            window.imp().repo_view.push(&page);
+        }));
 
         repo_object
             .bind_property("name", &row, "title")
@@ -136,20 +138,6 @@ impl Window {
             })
             .build();
 
-        let action_toast = ActionEntry::builder("toast_name")
-            .parameter_type(Some(&String::static_variant_type()))
-            .activate(move |window: &Self, action, param| {
-                let name = param
-                    .expect("No parameter")
-                    .get::<String>()
-                    .expect("Not a string");
-                let bar = adw::HeaderBar::builder().build();
-                let page = RepoPage::with_info(name, "Test".to_owned());
-                window.imp().repo_view.push(&page);
-                //window.imp().mytoast.add_toast(Toast::new(&name));
-            })
-            .build();
-
-        self.add_action_entries([action_about, action_toast]);
+        self.add_action_entries([action_about]);
     }
 }

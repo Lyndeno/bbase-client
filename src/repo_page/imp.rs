@@ -2,16 +2,14 @@ use std::cell::RefCell;
 
 use adw::subclass::prelude::*;
 use glib::Binding;
-use gtk::{glib, CheckButton, CompositeTemplate, Label};
+use gtk::{glib, CheckButton, CompositeTemplate, Label, ListBox};
 
 // state
 #[derive(Default, CompositeTemplate)]
 #[template(resource = "/org/lyndeno/bbase/repo_page.ui")]
 pub struct RepoPage {
     #[template_child]
-    pub name_label: TemplateChild<Label>,
-    #[template_child]
-    pub location_label: TemplateChild<Label>,
+    pub prop_list: TemplateChild<ListBox>,
     pub bindings: RefCell<Vec<Binding>>,
 }
 
