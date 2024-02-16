@@ -86,11 +86,14 @@ impl Window {
 
         glib::spawn_future_local(clone!(@weak self as window => async move {
             while let Ok(response) = receiver.recv().await {
-                    window.repos().remove_all();
-                    for repo in response {
-                        let item = RepoObject::new(repo);
-                        window.repos().append(&item);
-                    }
+                let mut total = 0f64;
+                window.repos().remove_all();
+                for repo in response {
+                    total += repo.current_usage.unwrap_or(0f64);
+                    let item = RepoObject::new(repo);
+                    window.repos().append(&item);
+                }
+                window.imp().current_usage.set_label(&format!("{:.2} GB", total / 1000f64));
                 window.imp().refresh_button.set_sensitive(true);
                 window.imp().refresh_spinner.stop();
                 window.imp().mytoast.add_toast(Toast::new("Refreshed"));

@@ -7,8 +7,8 @@ use adw::NavigationPage;
 use adw::NavigationView;
 use adw::ToastOverlay;
 use glib::subclass::InitializingObject;
-use gtk::ListBox;
 use gtk::{gio, glib, Button, CompositeTemplate, Spinner};
+use gtk::{Label, ListBox};
 
 // Object for state
 #[derive(CompositeTemplate, Default)]
@@ -16,6 +16,9 @@ use gtk::{gio, glib, Button, CompositeTemplate, Spinner};
 pub struct Window {
     #[template_child]
     pub refresh_button: TemplateChild<Button>,
+
+    #[template_child]
+    pub current_usage: TemplateChild<Label>,
 
     #[template_child]
     pub refresh_spinner: TemplateChild<Spinner>,
