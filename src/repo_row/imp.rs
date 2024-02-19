@@ -6,7 +6,7 @@ use gtk::{glib, CheckButton, CompositeTemplate, Label};
 
 // state
 #[derive(Default, CompositeTemplate)]
-#[template(resource = "/org/lyndeno/bbase/repo_row.ui")]
+#[template(file = "res/repo_row.blp")]
 pub struct RepoRow {
     #[template_child]
     pub name_label: TemplateChild<Label>,
