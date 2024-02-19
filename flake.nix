@@ -23,7 +23,7 @@
       naersk-lib = naersk.lib."${system}";
     in rec {
       packages.bbase = naersk-lib.buildPackage {
-        nativeBuildInputs = [pkgs.installShellFiles pkgs.pkg-config pkgs.libadwaita pkgs.gtk4 pkgs.wrapGAppsHook4];
+        nativeBuildInputs = [pkgs.installShellFiles pkgs.pkg-config pkgs.libadwaita pkgs.gtk4 pkgs.wrapGAppsHook4 pkgs.blueprint-compiler];
         postInstall = ''
           installShellCompletion --cmd bbase \
             --bash ./target/release/build/bbase-*/out/bbase.bash \
@@ -54,7 +54,7 @@
         };
       in
         pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [rustc cargo rustfmt clippy graphql-client pkg-config libadwaita gtk4 gnome.adwaita-icon-theme];
+          nativeBuildInputs = with pkgs; [rustc cargo rustfmt clippy graphql-client pkg-config libadwaita gtk4 gnome.adwaita-icon-theme blueprint-compiler];
           RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
           shellHook = ''
             ${pre-commit-format.shellHook}

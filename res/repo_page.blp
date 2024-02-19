@@ -1,0 +1,39 @@
+using Gtk 4.0;
+using Adw 1;
+
+template RepoPage : Adw.NavigationPage {
+    child: Adw.ToolbarView {
+        [top]
+        Adw.HeaderBar {}
+        content: Gtk.Box {
+            orientation: vertical;
+            margin-top: 12;
+            margin-bottom: 12;
+            margin-start: 12;
+            margin-end: 12;
+            spacing: 6;
+
+            Gtk.ScrolledWindow {
+                hscrollbar-policy: never;
+                min-content-height: 360;
+                vexpand: true;
+
+                child: Gtk.Box {
+                    orientation: vertical;
+                    spacing: 18;
+                    margin-top: 24;
+                    margin-bottom: 24;
+                    margin-start: 12;
+                    margin-end: 12;
+
+                    Gtk.ListBox prop_list {
+                        selection-mode: none;
+                        styles [
+                            "boxed-list"
+                        ]
+                    }
+                };
+            }
+        };
+    };
+}

@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 adw = { version = "0.6", package = "libadwaita", features = ["v1_4"] }
-gtk = { package = "gtk4", version = "0.8", features = ["v4_10"] }
+gtk = { package = "gtk4", version = "0.8", features = ["v4_10", "blueprint"] }
 chrono = { version = "0.4.33", features = ["serde"] }
 graphql_client = { version = "0.13.0", features = ["reqwest-rustls"] }
 reqwest = { version = "0.11.24", default-features = false, features = ["rustls"] }

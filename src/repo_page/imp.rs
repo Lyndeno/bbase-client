@@ -6,7 +6,7 @@ use gtk::{glib, CheckButton, CompositeTemplate, Label, ListBox};
 
 // state
 #[derive(Default, CompositeTemplate)]
-#[template(resource = "/org/lyndeno/bbase/repo_page.ui")]
+#[template(file = "res/repo_page.blp")]
 pub struct RepoPage {
     #[template_child]
     pub prop_list: TemplateChild<ListBox>,
