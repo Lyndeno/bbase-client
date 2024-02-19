@@ -12,7 +12,7 @@ use gtk::{Label, ListBox};
 
 // Object for state
 #[derive(CompositeTemplate, Default)]
-#[template(resource = "/org/lyndeno/bbase/window.ui")]
+#[template(file = "res/window.blp")]
 pub struct Window {
     #[template_child]
     pub refresh_button: TemplateChild<Button>,
