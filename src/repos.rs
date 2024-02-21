@@ -1,4 +1,4 @@
-use graphql_client::{reqwest::post_graphql, GraphQLQuery, Response};
+use graphql_client::{reqwest::post_graphql, GraphQLQuery};
 
 use chrono::offset::Utc;
 

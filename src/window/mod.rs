@@ -1,26 +1,18 @@
 mod imp;
 
-use std::borrow::Borrow;
-use std::ops::Deref;
-use std::sync::RwLock;
-
 use adw::subclass::prelude::*;
 use adw::Application;
-use adw::NavigationPage;
+
 use adw::Toast;
 use adw::{prelude::*, ActionRow};
 use glib::{clone, Object};
 use gtk::gio::ActionEntry;
-use gtk::glib::property::PropertyGet;
-use gtk::Button;
 use gtk::Image;
-use gtk::ListBox;
-use gtk::{gio, glib, NoSelection, SignalListItemFactory};
+use gtk::{gio, glib, NoSelection};
 
 use crate::repo_object::RepoObject;
 use crate::repo_page::RepoPage;
-use crate::repo_row;
-use crate::repo_row::RepoRow;
+
 use crate::repos::get_repos;
 
 glib::wrapper! {
@@ -68,8 +60,6 @@ impl Window {
     fn set_repo_list_visible(&self, repos: &gio::ListStore) {
         self.imp().repo_list.set_visible(repos.n_items() > 0);
     }
-
-    async fn get_repos(&self) {}
 
     fn setup_callbacks(&self) {
         let (sender, receiver) = async_channel::bounded(1);
@@ -130,7 +120,7 @@ impl Window {
 
     fn setup_actions(&self) {
         let action_about = ActionEntry::builder("show_about")
-            .activate(move |window: &Self, action, _| {
+            .activate(move |window: &Self, _, _| {
                 let dialog = adw::AboutWindow::builder()
                     .application_name("BBase")
                     .developer_name("Lyndon Sanche")

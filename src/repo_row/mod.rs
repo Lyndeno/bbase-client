@@ -3,8 +3,7 @@ mod imp;
 use adw::prelude::*;
 use adw::subclass::prelude::*;
 use glib::Object;
-use gtk::{glib, pango};
-use pango::{AttrInt, AttrList};
+use gtk::glib;
 
 use crate::repo_object::RepoObject;
 

@@ -1,9 +1,7 @@
 use std::cell::RefCell;
-use std::sync::{Arc, RwLock};
 
-use adw::prelude::*;
 use adw::subclass::prelude::*;
-use adw::NavigationPage;
+
 use adw::NavigationView;
 use adw::ToastOverlay;
 use glib::subclass::InitializingObject;

@@ -3,14 +3,13 @@ mod repo_page;
 mod repo_row;
 mod repos;
 mod window;
-use gtk::ApplicationWindow;
-use std::error::Error;
+
 use std::sync::OnceLock;
 use window::Window;
 
 use adw::prelude::*;
 use adw::Application;
-use gtk::Button;
+
 use gtk::{gio, glib};
 
 const APP_ID: &str = "org.lyndeno.bbase";

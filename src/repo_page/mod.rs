@@ -3,8 +3,7 @@ mod imp;
 use adw::subclass::prelude::*;
 use adw::{prelude::*, ActionRow};
 use glib::Object;
-use gtk::{glib, pango};
-use pango::{AttrInt, AttrList};
+use gtk::glib;
 
 use crate::repo_object::RepoObject;
 
@@ -25,7 +24,7 @@ impl RepoPage {
         Object::builder().build()
     }
 
-    pub fn with_info(name: String, location: String) -> Self {
+    pub fn with_info(name: String, _location: String) -> Self {
         let obj: Self = Object::builder().property("title", &name).build();
         obj
     }

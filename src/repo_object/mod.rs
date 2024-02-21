@@ -2,12 +2,9 @@ mod imp;
 
 use adw::subclass::prelude::*;
 use glib::Object;
-use gtk::glib::{self, subclass::types::FromObject, value::FromValue};
+use gtk::glib::{self};
 
 use crate::repos::repo_get::RepoGetRepoList;
-
-use chrono::offset::Utc;
-type DateTime = chrono::DateTime<Utc>;
 
 glib::wrapper! {
     pub struct RepoObject(ObjectSubclass<imp::RepoObject>);
