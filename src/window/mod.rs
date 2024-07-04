@@ -121,20 +121,17 @@ impl Window {
     fn setup_actions(&self) {
         let action_about = ActionEntry::builder("show_about")
             .activate(move |window: &Self, _, _| {
-                let dialog = adw::AboutWindow::builder()
+                let dialog = adw::AboutDialog::builder()
                     .application_name("BBase")
                     .developer_name("Lyndon Sanche")
                     .website("https://github.com/lyndeno/bbase-client")
                     .issue_url("https://github.com/lyndeno/bbase-client/issues")
                     .designers(vec!["Lyndon Sanche <lsanche@lyndeno.ca>".to_string()])
                     .version(env!("CARGO_PKG_VERSION"))
-                    .modal(true)
                     .developers(vec!["Lyndon Sanche <lsanche@lyndeno.ca>".to_string()])
                     .build();
 
-                dialog.set_transient_for(Some(window));
-
-                dialog.present();
+                dialog.present(window);
             })
             .build();
 
