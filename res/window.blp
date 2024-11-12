@@ -19,7 +19,9 @@ template $MyGtkAppWindow : Adw.ApplicationWindow {
                     Button refresh_button {
                         icon-name: "view-refresh-symbolic";
                     }
-                    Spinner refresh_spinner {}
+                    Adw.Spinner refresh_spinner {
+												visible: false;
+										}
 
                     [end]
                     MenuButton {

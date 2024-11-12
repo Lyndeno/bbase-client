@@ -3,9 +3,10 @@ use std::cell::RefCell;
 use adw::subclass::prelude::*;
 
 use adw::NavigationView;
+use adw::Spinner;
 use adw::ToastOverlay;
 use glib::subclass::InitializingObject;
-use gtk::{gio, glib, Button, CompositeTemplate, Spinner};
+use gtk::{gio, glib, Button, CompositeTemplate};
 use gtk::{Label, ListBox};
 
 // Object for state

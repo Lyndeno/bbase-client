@@ -67,7 +67,7 @@ impl Window {
             .refresh_button
             .connect_clicked(clone!(@weak self as window => move |_| {
                 window.imp().refresh_button.set_sensitive(false);
-                window.imp().refresh_spinner.start();
+                window.imp().refresh_spinner.set_visible(true);
                 crate::runtime().spawn(clone!(@strong sender => async move {
                     let repos = get_repos().await;
                     sender.send(repos).await.expect("Channel is not open");
@@ -85,7 +85,7 @@ impl Window {
                 }
                 window.imp().current_usage.set_label(&format!("{:.2} GB", total / 1000f64));
                 window.imp().refresh_button.set_sensitive(true);
-                window.imp().refresh_spinner.stop();
+                window.imp().refresh_spinner.set_visible(false);
                 window.imp().mytoast.add_toast(Toast::new("Refreshed"));
             }
         }));
@@ -131,7 +131,7 @@ impl Window {
                     .developers(vec!["Lyndon Sanche <lsanche@lyndeno.ca>".to_string()])
                     .build();
 
-                dialog.present(window);
+                dialog.present(Some(window));
             })
             .build();
 
