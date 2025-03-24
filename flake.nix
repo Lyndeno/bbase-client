@@ -54,7 +54,7 @@
         };
       in
         pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [rustc cargo rustfmt clippy graphql-client pkg-config libadwaita gtk4 gnome.adwaita-icon-theme blueprint-compiler];
+          nativeBuildInputs = with pkgs; [rustc cargo rustfmt clippy graphql-client pkg-config libadwaita gtk4 adwaita-icon-theme blueprint-compiler];
           RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
           shellHook = ''
             ${pre-commit-format.shellHook}
