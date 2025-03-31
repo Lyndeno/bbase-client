@@ -11,7 +11,7 @@ gtk = { package = "gtk4", version = "0.9.*", features = ["gnome_47", "blueprint"
 chrono = { version = "0.4.33", features = ["serde"] }
 graphql_client = { version = "0.14.0", features = ["reqwest-rustls"] }
 reqwest = { version = "0.11.24", default-features = false, features = ["rustls"] }
-serde = { version = "1.0.196", features = ["derive"] }
+serde = { version = "1.0.219", features = ["derive"] }
 async-std = { version = "1.13.1", features = ["attributes", "tokio1"] }
 tokio = { version = "1", features = ["rt-multi-thread"] }
 async-channel = "2.2.0"
